@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imen Hadj Souayeh — Cyber Security Intern Candidate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F14;
+    --panel:#111820;
+    --panel-2:#0D1319;
+    --line: rgba(43,217,160,0.14);
+    --line-strong: rgba(43,217,160,0.3);
+    --green:#2BD9A0;
+    --green-dim: rgba(43,217,160,0.12);
+    --blue:#4C8DFF;
+    --blue-dim: rgba(76,141,255,0.12);
+    --text:#E7EEF3;
+    --muted:#7E8C99;
+    --bar-track: rgba(255,255,255,0.06);
+    --shadow: 0 20px 60px rgba(0,0,0,0.45);
+  }
+  [data-theme="light"]{
+    --bg:#F3F6F5;
+    --panel:#FFFFFF;
+    --panel-2:#ECF1EF;
+    --line: rgba(14,159,119,0.16);
+    --line-strong: rgba(14,159,119,0.4);
+    --green:#0E9F77;
+    --green-dim: rgba(14,159,119,0.10);
+    --blue:#2B6CE0;
+    --blue-dim: rgba(43,108,224,0.10);
+    --text:#10161B;
+    --muted:#5B6770;
+    --bar-track: rgba(16,22,27,0.08);
+    --shadow: 0 20px 50px rgba(16,22,27,0.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    transition:background .35s ease, color .35s ease;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-attachment: fixed;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+
+  /* ===== Layout ===== */
+  .shell{
+    display:flex;
+    min-height:100vh;
+  }
+  .sidebar{
+    width:280px;
+    flex-shrink:0;
+    position:fixed;
+    top:0;left:0;bottom:0;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    padding:34px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+    z-index:10;
+  }
+  .main{
+    margin-left:280px;
+    width:calc(100% - 280px);
+    padding:48px 56px 80px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:40px;height:40px;
+    border:1px solid var(--line-strong);
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--green);
+    background:var(--green-dim);
+  }
+  .brand-name{font-size:14px; font-weight:600; line-height:1.3;}
+  .brand-role{font-size:11px; color:var(--muted); font-family:'IBM Plex Mono', monospace; letter-spacing:.03em;}
+
+  nav.sections{display:flex; flex-direction:column; gap:4px; margin-top:6px;}
+  nav.sections a{
+    display:flex; align-items:baseline; gap:10px;
+    text-decoration:none;
+    padding:9px 10px;
+    border-radius:8px;
+    font-size:13.5px;
+    color:var(--muted);
+    transition:.2s;
+  }
+  nav.sections a .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--green); opacity:.8;}
+  nav.sections a:hover, nav.sections a.active{
+    color:var(--text);
+    background:var(--green-dim);
+  }
+
+  .sidebar-foot{margin-top:auto; display:flex; flex-direction:column; gap:14px;}
+  .status-pill{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--green);
+    display:flex; align-items:center; gap:8px;
+    border:1px solid var(--line);
+    background:var(--green-dim);
+    padding:8px 10px;
+    border-radius:8px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  .social-row{display:flex; gap:10px;}
+  .social-row a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    border:1px solid var(--line);
+    padding:6px 10px;
+    border-radius:7px;
+    color:var(--muted);
+    text-decoration:none;
+  }
+  .theme-toggle{
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    color:var(--text);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:9px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+
+  /* ===== Section generic ===== */
+  section{padding-top:34px; padding-bottom:34px; border-bottom:1px solid var(--line); scroll-margin-top:30px;}
+  section:last-child{border-bottom:none;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--green);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:10px;
+  }
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line);}
+  h2.title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:26px;
+    margin:0 0 18px;
+    font-weight:700;
+  }
+
+  /* ===== Hero / terminal ===== */
+  .hero-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:center;}
+  .hero-head{font-family:'Space Grotesk', sans-serif; font-size:40px; line-height:1.18; font-weight:700; margin:0 0 16px;}
+  .hero-head .accent{color:var(--green);}
+  .hero-sub{color:var(--muted); font-size:15.5px; line-height:1.7; max-width:480px; margin-bottom:22px;}
+  .hero-tags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    padding:6px 10px;
+    border-radius:6px;
+    color:var(--muted);
+  }
+  .cta-row{display:flex; gap:12px;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    padding:12px 18px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--green); color:#06120D; font-weight:600;}
+  .btn-outline{border:1px solid var(--line-strong); color:var(--text);}
+
+  .terminal{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+  }
+  .term-dot{width:9px;height:9px;border-radius:50%;}
+  .term-body{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    line-height:1.9;
+    padding:20px 18px;
+    min-height:230px;
+    color:var(--text);
+  }
+  .term-body .ok{color:var(--green);}
+  .term-body .info{color:var(--blue);}
+  .term-body .muted{color:var(--muted);}
+  .caret{display:inline-block; width:7px; height:14px; background:var(--green); vertical-align:middle; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ===== About ===== */
+  .about-wrap{display:grid; grid-template-columns:1fr; gap:18px;}
+  .about-text{font-size:15.5px; line-height:1.85; color:var(--text); max-width:760px;}
+  .about-text strong{color:var(--green);}
+
+  /* ===== Skills ===== */
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;}
+  .skill-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:20px 20px 16px;
+  }
+  .skill-card h3{
+    font-size:13px; margin:0 0 14px;
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .skill-row{margin-bottom:13px;}
+  .skill-row:last-child{margin-bottom:0;}
+  .skill-label{display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px;}
+  .skill-label .pct{font-family:'IBM Plex Mono', monospace; color:var(--green); font-size:12px;}
+  .bar-track{height:6px; background:var(--bar-track); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; background:linear-gradient(90deg, var(--blue), var(--green)); border-radius:4px;}
+
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+  .chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    padding:7px 12px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    color:var(--text);
+    background:var(--panel-2);
+  }
+
+  /* ===== Projects ===== */
+  .proj-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;}
+  .proj-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px;
+    position:relative;
+    transition:.2s;
+  }
+  .proj-card:hover{border-color:var(--line-strong); transform:translateY(-2px);}
+  .proj-card.featured{grid-column:span 1; border-color:var(--line-strong); background:linear-gradient(160deg, var(--green-dim), var(--panel) 60%);}
+  .proj-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;}
+  .proj-icon{font-size:22px;}
+  .proj-flag{
+    font-family:'IBM Plex Mono', monospace; font-size:10px;
+    color:var(--green); border:1px solid var(--line-strong); background:var(--green-dim);
+    padding:3px 8px; border-radius:20px;
+  }
+  .proj-card h3{font-family:'Space Grotesk', sans-serif; font-size:17px; margin:0 0 6px;}
+  .proj-tools{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--blue); margin-bottom:10px;}
+  .proj-card p{font-size:13.5px; color:var(--muted); line-height:1.65; margin:0;}
+  .proj-card .why{margin-top:10px; font-size:12.5px; color:var(--text); border-top:1px dashed var(--line); padding-top:10px;}
+  .proj-card .why b{color:var(--green); font-family:'IBM Plex Mono', monospace; font-size:11px; display:block; margin-bottom:3px;}
+
+  /* ===== Timeline ===== */
+  .timeline{position:relative; padding-left:26px; border-left:1px solid var(--line);}
+  .t-item{position:relative; padding-bottom:26px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{position:absolute; left:-31px; top:3px; width:10px;height:10px;border-radius:50%; background:var(--green); box-shadow:0 0 0 4px var(--green-dim);}
+  .t-date{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--green); margin-bottom:4px;}
+  .t-title{font-weight:600; font-size:15px; margin-bottom:2px;}
+  .t-org{font-size:13px; color:var(--muted); margin-bottom:8px;}
+  .t-desc{font-size:13.5px; color:var(--text); line-height:1.65; max-width:620px;}
+  .t-sub{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--blue); text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px;}
+
+  /* ===== Leadership ===== */
+  .lead-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .lead-card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px;}
+  .lead-card .yr{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--green); margin-bottom:8px;}
+  .lead-card h4{margin:0 0 6px; font-size:14.5px;}
+  .lead-card p{margin:0; font-size:12.5px; color:var(--muted); line-height:1.6;}
+  .callout{
+    margin-top:18px; padding:14px 16px; border-radius:10px;
+    background:var(--blue-dim); border:1px solid rgba(76,141,255,0.3);
+    font-size:13px; color:var(--text); line-height:1.6;
+  }
+  .callout b{color:var(--blue);}
+
+  /* ===== Languages / Interests / Contact ===== */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .lang-row{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line); font-size:13.5px;}
+  .lang-row:last-child{border-bottom:none;}
+  .lang-row .lvl{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--green);}
+
+  .contact-box{
+    background:var(--panel); border:1px solid var(--line-strong); border-radius:14px;
+    padding:30px; text-align:center;
+  }
+  .contact-box h2{margin:0 0 8px;}
+  .contact-box p{color:var(--muted); margin:0 0 20px; font-size:14px;}
+  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+
+  footer{
+    text-align:center; padding-top:30px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);
+  }
+
+  @media (max-width: 980px){
+    .sidebar{position:relative; width:100%; height:auto; flex-direction:row; align-items:center; justify-content:space-between; padding:16px 20px;}
+    .sidebar nav.sections, .sidebar-foot{display:none;}
+    .main{margin-left:0; width:100%; padding:30px 22px 60px;}
+    .shell{flex-direction:column;}
+    .hero-grid, .skills-grid, .proj-grid, .lead-grid, .split{grid-template-columns:1fr;}
+    .hero-head{font-size:30px;}
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">IH</div>
+      <div>
+        <div class="brand-name">Imen Hadj Souayeh</div>
+        <div class="brand-role">CYBER SECURITY INTERN CANDIDATE</div>
+      </div>
+    </div>
+
+    <nav class="sections">
+      <a href="#hero" class="active"><span class="num">01</span> Hero</a>
+      <a href="#about"><span class="num">02</span> About</a>
+      <a href="#skills"><span class="num">03</span> Skills</a>
+      <a href="#projects"><span class="num">04</span> Projects</a>
+      <a href="#experience"><span class="num">05</span> Experience &amp; Education</a>
+      <a href="#leadership"><span class="num">06</span> Leadership</a>
+      <a href="#contact"><span class="num">07</span> Languages &amp; Contact</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="status-pill"><span class="dot"></span> AVAILABLE FOR INTERNSHIP</div>
+      <div class="social-row">
+        <a href="mailto:imenhadjsouayeh@gmail.com">EMAIL</a>
+        <a href="#">LINKEDIN</a>
+        <a href="#">GITHUB</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <span class="mono">THEME: <span id="themeLabel">DARK</span></span>
+        <span>◐</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section id="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">// status: seeking cyber security internship</div>
+          <h1 class="hero-head">Defending systems<br>starts with <span class="accent">understanding</span> them.</h1>
+          <p class="hero-sub">Computer Science graduate from ISAST Sousse with a builder's mindset and a security-first instinct. I turn code, networks, and curiosity into a career protecting what matters — and I'm looking for the internship where that starts.</p>
+          <div class="hero-tags">
+            <span class="tag">Sousse, Tunisia</span>
+            <span class="tag">B.Sc. Computer Science</span>
+            <span class="tag">Open to relocation / remote</span>
+          </div>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#projects">View Projects →</a>
+            <a class="btn btn-outline" href="mailto:imenhadjsouayeh@gmail.com">Contact Me</a>
+          </div>
+        </div>
+
+        <div class="terminal">
+          <div class="term-bar">
+            <span class="term-dot" style="background:#ff5f56;"></span>
+            <span class="term-dot" style="background:#ffbd2e;"></span>
+            <span class="term-dot" style="background:#27c93f;"></span>
+            <span style="margin-left:8px;">candidate_profile.sh</span>
+          </div>
+          <div class="term-body" id="termBody"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="eyebrow">02 — About</div>
+      <h2 class="title">Who I am</h2>
+      <div class="about-wrap">
+        <p class="about-text">
+          I'm a Computer Science graduate from <strong>ISAST Sousse</strong> with a strong foundation in networking, systems, and software development — and a growing passion for cyber security that drives everything I build. Over the past few years I've shipped full-stack platforms, built a Unity-based educational game, and applied machine learning to real-world health data, learning at every step how systems can be designed, broken, and defended. I'm now focused on turning that foundation into hands-on <strong>security expertise</strong>: I learn fast, I dig into problems instead of around them, and I'm actively seeking an internship where I can apply security principles to real infrastructure and grow into a reliable, detail-driven member of a security team.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="eyebrow">03 — Skills</div>
+      <h2 class="title">What I bring to the table</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Security &amp; Infrastructure</h3>
+          <div class="skill-row"><div class="skill-label"><span>Cybersecurity Fundamentals</span><span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></div>
+          <div class="skill-row"><div class="skill-label"><span>Networking Principles</span><span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></div>
+          <div class="skill-row"><div class="skill-label"><span>Linux Administration</span><span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></div>
+          <div class="skill-row"><div class="skill-label"><span>Cloud Computing</span><span class="pct">60%</span></div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div></div>
+        </div>
+        <div class="skill-card">
+          <h3>Programming</h3>
+          <div class="skill-row"><div class="skill-label"><span>Python</span><span class="pct">90%</span></div><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div></div>
+          <div class="skill-row"><div class="skill-label"><span>JavaScript / HTML / CSS</span><span class="pct">90%</span></div><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div></div>
+          <div class="skill-row"><div class="skill-label"><span>Java</span><span class="pct">80%</span></div><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div></div>
+          <div class="skill-row"><div class="skill-label"><span>SQL / C / C++ / PHP</span><span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div></div>
+        </div>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Git</span><span class="chip">Visual Studio</span><span class="chip">Android Studio</span>
+        <span class="chip">Unity</span><span class="chip">Power BI</span><span class="chip">Power Automate</span>
+        <span class="chip">PowerApps</span><span class="chip">SharePoint</span>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="eyebrow">04 — Projects</div>
+      <h2 class="title">Featured work</h2>
+      <div class="proj-grid">
+
+        <div class="proj-card featured">
+          <div class="proj-top"><span class="proj-icon">🎮</span><span class="proj-flag">SECURITY-FOCUSED</span></div>
+          <h3>Cyber Escape</h3>
+          <div class="proj-tools">Unity · C#</div>
+          <p>An educational 2D escape-room game that teaches security concepts — phishing recognition, password hygiene, social engineering — through interactive puzzles. Built end-to-end: logic, level design, and puzzle mechanics.</p>
+          <div class="why"><b>WHY IT MATTERS</b>Built specifically to merge personal passion for security with technical execution — proof of initiative, not just coursework.</div>
+        </div>
+
+        <div class="proj-card featured">
+          <div class="proj-top"><span class="proj-icon">💻</span><span class="proj-flag">FULL OWNERSHIP</span></div>
+          <h3>Interactive Educational Platform</h3>
+          <div class="proj-tools">HTML · CSS · JavaScript</div>
+          <p>A full e-learning platform with Online Courses and Practical Exercises modules, architected from scratch to support scalable content and interactive learning flows.</p>
+          <div class="why"><b>WHY IT MATTERS</b>End-to-end ownership of architecture, UX, and delivery — directly transferable to building/securing internal security tools.</div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top"><span class="proj-icon">📱</span></div>
+          <h3>Mobile Quiz Application</h3>
+          <div class="proj-tools">Java · Android Studio</div>
+          <p>Native Android quiz app covering UI design, app logic, and data flow — early exposure to a growing mobile attack surface.</p>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top"><span class="proj-icon">❤️</span></div>
+          <h3>Heart Disease Prediction System</h3>
+          <div class="proj-tools">Python · Machine Learning</div>
+          <p>ML model assessing disease risk from patient data — preprocessing, training, evaluation. Builds the pattern-detection instincts behind anomaly/threat detection.</p>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top"><span class="proj-icon">📊</span></div>
+          <h3>Australia Disease Prognosis</h3>
+          <div class="proj-tools">Python · Google Colab</div>
+          <p>Statistical and ML analysis of health datasets in a cloud-based notebook environment.</p>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top"><span class="proj-icon">🐾</span></div>
+          <h3>Pet Adoption Platform</h3>
+          <div class="proj-tools">HTML · CSS · JS · PHP</div>
+          <p>Full-stack app connecting users with adoptable pets — front-end UI plus back-end PHP logic, including form handling and data persistence.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="eyebrow">05 — Experience &amp; Education</div>
+      <h2 class="title">Track record</h2>
+
+      <div class="t-sub">Professional Experience</div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-date">10/2025 — PRESENT</div>
+          <div class="t-title">Engineer</div>
+          <div class="t-org">EPI Digital School, Sousse</div>
+          <div class="t-desc">Apply technical and engineering knowledge in an academic technology environment, contributing to ongoing projects and reinforcing project administration and adaptability in a dynamic technical team.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-date">10/2024 — PRESENT</div>
+          <div class="t-title">Customer Service Representative</div>
+          <div class="t-org">Taki Academy, Sousse</div>
+          <div class="t-desc">Manage client communications with professionalism and responsiveness, strengthening communication and problem-resolution skills directly applicable to client-facing security and incident-response roles.</div>
+        </div>
+      </div>
+
+      <div class="t-sub" style="margin-top:30px;">Education</div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-date">09/2023 — 06/2024</div>
+          <div class="t-title">B.Sc. Computer Science</div>
+          <div class="t-org">Higher Institute of Applied Sciences and Technology (ISAST), Sousse</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-date">09/2020 — 06/2023</div>
+          <div class="t-title">Mathematics-Physics Preparatory Program</div>
+          <div class="t-org">ISAST, Sousse</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-date">07/2020</div>
+          <div class="t-title">Baccalaureate in Mathematics</div>
+          <div class="t-org">Zaouia and Ksiba High School</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leadership">
+      <div class="eyebrow">06 — Leadership</div>
+      <h2 class="title">Clubs &amp; leadership</h2>
+      <div class="lead-grid">
+        <div class="lead-card">
+          <div class="yr">2023 — 2024</div>
+          <h4>HR Member, Club Microsoft</h4>
+          <p>Supported member engagement and internal coordination within a leading student technology club.</p>
+        </div>
+        <div class="lead-card">
+          <div class="yr">2021 — 2022</div>
+          <h4>HR Member, Mahdia Robotics Club</h4>
+          <p>Contributed to HR operations within a robotics-focused student organization, supporting recruitment and member development.</p>
+        </div>
+        <div class="lead-card">
+          <div class="yr">2020 — 2021</div>
+          <h4>HR Member, IEEE ESSTHS</h4>
+          <p>Built early experience in organizational teamwork within a globally recognized engineering student branch.</p>
+        </div>
+      </div>
+      <div class="callout"><b>Why this matters:</b> Three consecutive years of HR/leadership roles in technical student organizations show consistency, people skills, and comfort operating inside structured professional environments — traits security teams value as much as technical chops.</div>
+    </section>
+
+    <section id="contact">
+      <div class="eyebrow">07 — Languages &amp; Contact</div>
+      <h2 class="title">Let's talk</h2>
+      <div class="split" style="margin-bottom:30px;">
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <div class="lang-row"><span>Arabic</span><span class="lvl">NATIVE</span></div>
+          <div class="lang-row"><span>French</span><span class="lvl">FULL PROFESSIONAL</span></div>
+          <div class="lang-row"><span>English</span><span class="lvl">FULL PROFESSIONAL</span></div>
+        </div>
+        <div class="skill-card">
+          <h3>Interests</h3>
+          <div class="chip-row" style="margin-top:0;">
+            <span class="chip">🎵 Music</span><span class="chip">🎭 Theater</span><span class="chip">♟️ Chess</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--muted); margin-top:14px; line-height:1.6;">Chess in particular reflects strategic thinking and pattern recognition — skills that translate directly into security analysis.</p>
+        </div>
+      </div>
+
+      <div class="contact-box">
+        <h2 class="display">Ready to bring this to a security team.</h2>
+        <p>Open to internship opportunities starting at the conclusion of my studies — Sousse, Tunisia or remote.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:imenhadjsouayeh@gmail.com">imenhadjsouayeh@gmail.com</a>
+          <a class="btn btn-outline" href="tel:58095135">58 095 135</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2026 IMEN HADJ SOUAYEH — BUILT WITH SECURITY IN MIND</footer>
+  </main>
+</div>
+
+<script>
+  // Theme toggle
+  const body = document.body;
+  const toggle = document.getElementById('themeToggle');
+  const label = document.getElementById('themeLabel');
+  toggle.addEventListener('click', () => {
+    const isDark = body.getAttribute('data-theme') === 'dark';
+    body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    label.textContent = isDark ? 'LIGHT' : 'DARK';
+  });
+
+  // Active nav highlight on scroll
+  const links = document.querySelectorAll('nav.sections a');
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', () => {
+    let current = sections[0].id;
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 140) current = sec.id;
+    });
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+  });
+
+  // Terminal boot sequence animation
+  const lines = [
+    {text: '$ whoami', cls: ''},
+    {text: 'imen_hadj_souayeh', cls: 'ok'},
+    {text: '$ cat role.txt', cls: ''},
+    {text: 'Cyber Security Intern Candidate', cls: 'info'},
+    {text: '$ scan --target=skills --verbose', cls: ''},
+    {text: '[OK] networking ........ ready', cls: 'ok'},
+    {text: '[OK] linux .............. ready', cls: 'ok'},
+    {text: '[OK] secure coding ...... ready', cls: 'ok'},
+    {text: '$ status', cls: ''},
+    {text: 'READY FOR INTERNSHIP', cls: 'info'},
+  ];
+  const termBody = document.getElementById('termBody');
+  let lineIndex = 0, charIndex = 0;
+
+  function typeLine(){
+    if (lineIndex >= lines.length){
+      termBody.innerHTML += '<div><span class="caret"></span></div>';
+      return;
+    }
+    const line = lines[lineIndex];
+    if (!termBody.querySelector('.current')) {
+      const div = document.createElement('div');
+      div.className = 'current ' + line.cls;
+      termBody.appendChild(div);
+    }
+    const cur = termBody.querySelector('.current');
+    if (charIndex <= line.text.length){
+      cur.textContent = line.text.slice(0, charIndex);
+      charIndex++;
+      setTimeout(typeLine, 22);
+    } else {
+      cur.classList.remove('current');
+      lineIndex++;
+      charIndex = 0;
+      setTimeout(typeLine, 220);
+    }
+  }
+  typeLine();
+</script>
+
+</body>
+</html>
